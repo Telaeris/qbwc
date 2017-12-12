@@ -25,7 +25,7 @@ class QBWC::ActiveRecord::Session < QBWC::Session
   end
 
   def save
-    @session.pending_jobs = pending_jobs.map(&:name).join(',')
+    @session.pending_jobs = pending_jobs.reject{|a| a.nil?}.map(&:name).join(',') 
     @session.current_job = current_job.try(:name)
     @session.save
     super
